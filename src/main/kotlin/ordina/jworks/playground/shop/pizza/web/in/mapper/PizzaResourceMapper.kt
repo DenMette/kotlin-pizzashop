@@ -12,5 +12,9 @@ import org.springframework.stereotype.Component
 class PizzaResourceMapper {
 
     fun mapDomainToResource(pizza: Pizza): PizzaResource =
-        PizzaResource(pizza.name, pizza.price.value, pizza.toppings.map { it.value })
+        PizzaResource(
+            name = pizza.name,
+            price = pizza.price.value,
+            toppings = pizza.toppings.map { it.value }
+        )
 }
