@@ -8,5 +8,4 @@ import java.util.*
  * @author Maarten Casteels
  * @since 2021
  */
-interface PizzaJpaRepository : JpaRepository<PizzaEntity, UUID> {
-}
+interface PizzaJpaRepository : JpaRepository<PizzaEntity, UUID>

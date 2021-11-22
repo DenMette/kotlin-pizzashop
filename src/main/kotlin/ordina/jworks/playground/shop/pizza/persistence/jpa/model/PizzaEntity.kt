@@ -1,5 +1,6 @@
 package ordina.jworks.playground.shop.pizza.persistence.jpa.model
 
+import org.hibernate.Hibernate
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -19,4 +20,20 @@ data class PizzaEntity(
 
     @Column(name = "toppings")
     val toppings: String,
-)
+) {
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
+        other as PizzaEntity
+
+        return id == other.id
+    }
+
+    override fun hashCode(): Int = javaClass.hashCode()
+
+    @Override
+    override fun toString(): String {
+        return this::class.simpleName + "(id = $id , name = $name , price = $price , toppings = $toppings )"
+    }
+}

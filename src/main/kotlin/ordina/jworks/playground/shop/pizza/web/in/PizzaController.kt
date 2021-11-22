@@ -20,5 +20,7 @@ class PizzaController(
 
     @GetMapping
     fun index(): Collection<PizzaResource> =
-        pizzaService.getPizzas().map { pizzaResourceMapper.mapDomainToResource(it) }
+        pizzaService.getPizzas().map {
+            pizzaResourceMapper.mapDomainToResource(it)
+        }
 }
