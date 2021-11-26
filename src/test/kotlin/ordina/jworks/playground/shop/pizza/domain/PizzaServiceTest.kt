@@ -12,8 +12,8 @@ import org.mockito.kotlin.verify
  */
 internal class PizzaServiceTest {
 
-    val facade: PizzaPersistenceFacade = mock()
-    val service = PizzaService(facade)
+    private val facade: PizzaPersistenceFacade = mock()
+    private val service = PizzaService(facade)
 
     @Test
     fun `should call it's data source to retrieve pizzas`() {

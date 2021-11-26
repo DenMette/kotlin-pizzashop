@@ -15,10 +15,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 @DataJpaTest
 class PizzaJpaPersistenceServiceTest @Autowired constructor(
     val entityManager: TestEntityManager,
-    val repository: PizzaJpaRepository
+    repository: PizzaJpaRepository
 ) {
 
-    val mapper = PizzaDaoMapper()
+    private final val mapper = PizzaDaoMapper()
     val service = PizzaJpaPersistenceService(repository, mapper)
 
     @Test

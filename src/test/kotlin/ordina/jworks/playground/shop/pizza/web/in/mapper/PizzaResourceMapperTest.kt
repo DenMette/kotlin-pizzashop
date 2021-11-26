@@ -14,16 +14,16 @@ import org.junit.jupiter.api.Test
  */
 internal class PizzaResourceMapperTest {
 
-    private val pizzaResourceMapper = PizzaResourceMapper();
+    private val pizzaResourceMapper = PizzaResourceMapper()
 
     @Test
     fun `should map Pizza object into PizzaResource`() {
         // given
         val pizza = Pizza(
-            PizzaId("123-456"),
-            "Margherita",
-            Price(12.25),
-            listOf(
+            id = PizzaId("123-456"),
+            name = "Margherita",
+            price = Price(12.25),
+            toppings = listOf(
                 Topping("tomato"),
                 Topping("mozzarella"),
                 Topping("fresh basil")

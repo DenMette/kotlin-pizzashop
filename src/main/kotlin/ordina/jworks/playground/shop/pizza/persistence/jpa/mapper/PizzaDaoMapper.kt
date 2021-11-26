@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component
 class PizzaDaoMapper {
     fun toDomain(entity: PizzaEntity): Pizza {
         return Pizza(
-            PizzaId(entity.id.toString()),
-            entity.name,
-            Price(entity.price),
-            entity.toppings.split(",").map { Topping(it) }
+            id = PizzaId(entity.id.toString()),
+            name = entity.name,
+            price = Price(entity.price),
+            toppings = entity.toppings.split(",").map { Topping(it) }
         )
     }
 }
