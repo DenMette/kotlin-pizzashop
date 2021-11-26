@@ -4,13 +4,11 @@ import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
+import javax.persistence.Table
 
+@Table(name = "PIZZA", schema = "pizzashop")
 @Entity
-data class PizzaEntity(
-    @Id
-    @Column(name = "id", nullable = false, length = 16, unique = true)
-    val id: UUID = UUID.randomUUID(),
-
+class PizzaEntity(
     @Column(name = "name", nullable = false)
     val name: String,
 
@@ -19,4 +17,8 @@ data class PizzaEntity(
 
     @Column(name = "toppings")
     val toppings: String,
-)
+) {
+    @Id
+    @Column(name = "id", nullable = false, length = 16, unique = true)
+    val id: UUID? = UUID.randomUUID()
+}
