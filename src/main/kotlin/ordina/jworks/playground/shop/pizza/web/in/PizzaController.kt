@@ -3,9 +3,8 @@ package ordina.jworks.playground.shop.pizza.web.`in`
 import ordina.jworks.playground.shop.pizza.domain.PizzaService
 import ordina.jworks.playground.shop.pizza.web.`in`.mapper.PizzaResourceMapper
 import ordina.jworks.playground.shop.pizza.web.`in`.model.PizzaResource
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.*
 
 /**
  * @author Maarten Casteels
@@ -23,4 +22,14 @@ class PizzaController(
         pizzaService.getPizzas().map {
             pizzaResourceMapper.mapDomainToResource(it)
         }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    fun create(): PizzaResource {
+        return PizzaResource(
+            name = "Margherita",
+            price = 12.25,
+            toppings = listOf("tomato", "mozzarella", "fresh basil")
+        )
+    }
 }

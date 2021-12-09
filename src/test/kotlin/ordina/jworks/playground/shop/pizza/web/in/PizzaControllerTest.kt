@@ -1,11 +1,12 @@
 package ordina.jworks.playground.shop.pizza.web.`in`
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import ordina.jworks.playground.shop.pizza.persistence.jpa.PizzaJpaRepository
 import ordina.jworks.playground.shop.pizza.persistence.jpa.model.PizzaEntity
+import ordina.jworks.playground.shop.pizza.web.`in`.model.CreatePizzaResource
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -15,6 +16,7 @@ import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
+import org.springframework.test.web.servlet.post
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
@@ -29,7 +31,8 @@ import org.testcontainers.junit.jupiter.Testcontainers
 @Testcontainers
 internal class PizzaControllerTest @Autowired constructor(
     val mockMvc: MockMvc,
-    val repository: PizzaJpaRepository
+    val repository: PizzaJpaRepository,
+    val mapper: ObjectMapper
 ) {
 
     companion object {
@@ -48,7 +51,6 @@ internal class PizzaControllerTest @Autowired constructor(
 
     @Nested
     @DisplayName("GET /pizzas")
-    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class GetAllPizzas {
 
         @Test
@@ -73,6 +75,35 @@ internal class PizzaControllerTest @Autowired constructor(
                 }
 
             repository.delete(margherita)
+        }
+    }
+
+    @Nested
+    @DisplayName("POST /pizzas")
+    inner class CreatePizza {
+
+        @Test
+        fun `should create a pizza`() {
+            mockMvc.post("/pizzas")
+            {
+                contentType = MediaType.APPLICATION_JSON
+                content = mapper.writeValueAsString(
+                    CreatePizzaResource(
+                        name = "Margherita",
+                        price = 12.25,
+                        toppings = listOf("tomato", "mozzarella", "fresh basil")
+                    )
+                )
+                accept = MediaType.APPLICATION_JSON
+            }
+                .andDo { print() }
+                .andExpect {
+                    status { isCreated() }
+                    content { contentType(MediaType.APPLICATION_JSON) }
+                    jsonPath("name") { value("Margherita") }
+                    jsonPath("price") { value(12.25) }
+                    jsonPath("toppings") { isArray() }
+                }
         }
     }
 }
