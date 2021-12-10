@@ -107,6 +107,9 @@ internal class PizzaControllerTest @Autowired constructor(
                 }
 
             Assertions.assertThat(repository.count()).isEqualTo(1)
+            Assertions.assertThat(repository.findAll()).allMatch {
+                it.name == "Margherita"
+            }
         }
     }
 }
