@@ -37,6 +37,6 @@ class PizzaJpaPersistenceServiceTest @Autowired constructor(
         val retrievePizzas = service.retrievePizzas()
 
         // then
-        assertThat(retrievePizzas).allMatch { it.id.id != "" }
+        assertThat(retrievePizzas).allMatch { it.id.value != "" }
     }
 }

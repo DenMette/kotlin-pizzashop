@@ -14,4 +14,12 @@ class PizzaJpaPersistenceService(
     override fun retrievePizzas(): Collection<Pizza> {
         return repository.findAll().map { mapper.toDomain(it) }
     }
+
+    override fun save(pizza: Pizza): Pizza {
+        return mapper.toDomain(
+            repository.save(
+                mapper.toEntity(pizza)
+            )
+        )
+    }
 }

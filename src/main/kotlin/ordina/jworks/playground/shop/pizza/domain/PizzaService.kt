@@ -13,4 +13,7 @@ class PizzaService(private val pizzaPersistenceFacade: PizzaPersistenceFacade) {
 
     fun getPizzas(): Collection<Pizza> =
         pizzaPersistenceFacade.retrievePizzas()
+
+    fun createPizza(pizza: Pizza) =
+        pizzaPersistenceFacade.save(pizza)
 }

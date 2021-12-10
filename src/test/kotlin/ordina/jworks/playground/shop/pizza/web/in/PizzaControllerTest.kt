@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import ordina.jworks.playground.shop.pizza.persistence.jpa.PizzaJpaRepository
 import ordina.jworks.playground.shop.pizza.persistence.jpa.model.PizzaEntity
 import ordina.jworks.playground.shop.pizza.web.`in`.model.CreatePizzaResource
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -104,6 +105,8 @@ internal class PizzaControllerTest @Autowired constructor(
                     jsonPath("price") { value(12.25) }
                     jsonPath("toppings") { isArray() }
                 }
+
+            Assertions.assertThat(repository.count()).isEqualTo(1)
         }
     }
 }

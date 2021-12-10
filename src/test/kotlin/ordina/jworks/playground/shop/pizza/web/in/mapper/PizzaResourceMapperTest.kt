@@ -31,7 +31,7 @@ internal class PizzaResourceMapperTest {
         )
 
         // when
-        val response = pizzaResourceMapper.mapDomainToResource(pizza)
+        val response = pizzaResourceMapper.toResource(pizza)
 
         // then
         val pizzaResource = PizzaResource("Margherita", 12.25, listOf("tomato", "mozzarella", "fresh basil"))

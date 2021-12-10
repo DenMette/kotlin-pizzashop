@@ -9,4 +9,6 @@ import ordina.jworks.playground.shop.pizza.domain.model.Pizza
 interface PizzaPersistenceFacade {
 
     fun retrievePizzas(): Collection<Pizza>
+
+    fun save(pizza: Pizza): Pizza
 }
